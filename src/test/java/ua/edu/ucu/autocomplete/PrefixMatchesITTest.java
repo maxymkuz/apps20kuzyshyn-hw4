@@ -2,13 +2,15 @@
 package ua.edu.ucu.autocomplete;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
+
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
 import org.junit.Before;
 import ua.edu.ucu.tries.RWayTrie;
 
 /**
- *
  * @author Andrii_Rodionov
  */
 public class PrefixMatchesITTest {
@@ -22,7 +24,7 @@ public class PrefixMatchesITTest {
     }
 
     @Test
-    public void testWordsWithPrefix_String() {
+    public void testWordsWithPrefix_String() throws Exception {
         String pref = "ab";
 
         Iterable<String> result = pm.wordsWithPrefix(pref);
@@ -33,7 +35,7 @@ public class PrefixMatchesITTest {
     }
 
     @Test
-    public void testWordsWithPrefix_String_and_K() {
+    public void testWordsWithPrefix_String_and_K() throws Exception {
         String pref = "abc";
         int k = 3;
 
