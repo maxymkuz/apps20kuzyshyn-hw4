@@ -4,27 +4,24 @@ import ua.edu.ucu.immutable.ImmutableLinkedList;
 import ua.edu.ucu.queue.Queue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class RWayTrie implements Trie {
 
     private static int R = 26;
-    // radix
     private int size = 0;
     private Node root = new Node();
 
-    // root of trie
     private static class Node {
-        private int word_length = -1;
+        private int wordLength = -1;
         private Node[] next = new Node[R];
     }
 
     private static class NodeTuple {
-        public final Node node;
-        public final String word;
+        private final Node node;
+        private final String word;
 
-        public NodeTuple(Node node, String word) {
+        NodeTuple(Node node, String word) {
             this.node = node;
             this.word = word;
         }
@@ -41,7 +38,7 @@ public class RWayTrie implements Trie {
             node = new Node();
         }
         if (t.weight == i) {
-            node.word_length = t.weight;
+            node.wordLength = t.weight;
             return node;
         }
         int c = (int) t.term.charAt(i) - (int) 'a';
@@ -65,7 +62,7 @@ public class RWayTrie implements Trie {
 //        System.out.println(node.word_length);
 
         if (i == word.length()) {
-            if (node.word_length == i) {
+            if (node.wordLength == i) {
                 return node;
             }
             return null;
@@ -90,8 +87,8 @@ public class RWayTrie implements Trie {
             return false;
         }
         if (i == word.length()) {
-            if (node.word_length == i) {
-                node.word_length = -1;  // deleting a string
+            if (node.wordLength == i) {
+                node.wordLength = -1;  // deleting a string
                 return true;
             }
             return false;
@@ -119,18 +116,18 @@ public class RWayTrie implements Trie {
             Object t = q.dequeue();
             if (t instanceof NodeTuple) {
                 Node node = ((NodeTuple) t).node;
-                String prev_str = ((NodeTuple) t).word;
+                String prevStr = ((NodeTuple) t).word;
                 if (node == null) {
                     continue;
                 }
-                if (node.word_length != -1) {
-                    iterableList.add(prev_str);
+                if (node.wordLength != -1) {
+                    iterableList.add(prevStr);
                 }
                 // adding all next words to the list
                 for (int j = 0; j < node.next.length; j++) {
                     if (node.next[j] != null) {
                         char c = (char) (j + (int) 'a');
-                        String combined = prev_str + c;
+                        String combined = prevStr + c;
                         q.enqueue(new NodeTuple(node.next[j], combined));
                     }
                 }
